@@ -1,0 +1,25 @@
+// Fonts
+@import "~font-awesome/scss/font-awesome"; // Font Awesome
+@import "~simple-line-icons/scss/simple-line-icons"; // Simple Line Icons
+
+// CoreUI Style
+@import "~@coreui/coreui/scss/coreui.scss";
+@import "~@coreui/icons/scss/coreui-icons.scss";
+@import "~flag-icon-css/sass/flag-icon.scss";
+
+// Temp fix for reactstrap
+@import '~@coreui/coreui/scss/_dropdown-menu-right.scss';
+
+// React DatePicker
+@import "~react-datepicker/dist/react-datepicker.css";
+
+// React Phone Number Input
+@import "~react-phone-number-input/style.css";
+
+// ie fixes
+@import "ie-fix";
+
+// Custom styles
+@import 'custom';
+@import 'custom-table';
+@import 'kanban';

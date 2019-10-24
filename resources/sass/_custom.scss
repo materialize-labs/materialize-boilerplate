@@ -1,0 +1,109 @@
+.ft-14 {
+  font-size: 14px !important;
+}
+
+.ft-15 {
+  font-size: 15px !important;
+}
+
+.ft-16 {
+  font-size: 16px !important;
+}
+
+.ft-22 {
+  font-size: 22px !important;
+}
+
+.ft-26 {
+  font-size: 26px !important;
+}
+
+.ft-bold {
+  font-weight: bold;
+}
+
+.ft-white {
+  color: #FFF !important;
+}
+
+body {
+  background-color: #fff;
+}
+
+.breadcrumb {
+  background-color: rgba(0, 0, 0, .1);
+}
+
+.app-header.navbar {
+  padding: 0;
+}
+
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.btn-google {
+  color: #fff;
+  background-color: #d34836;
+  border-color: #d34836;
+}
+
+form {
+  div#feedback {
+    display: block;
+    width: 100%;
+    margin-top: 0.25rem;
+    font-size: 80%;
+    color: #f86c6b;
+  }
+}
+
+.search-highlight {
+  // background-color: rgb(78, 171, 82);
+  // color: #fff;
+}
+
+.rdw-inline-wrapper {
+  z-index: 0 !important;
+}
+
+.rdw-editor-wrapper.form-control {
+  height: auto;
+}
+
+.editor-box {
+  min-height: 135px;
+  max-height: 210px;
+  overflow-x: scroll;
+  padding: 5px !important;
+}
+
+.react-phone-number-input__icon-image {
+  vertical-align: top;
+}
+
+
+.is-invalid + .invalid-feedback {
+  display: block;
+}
+
+.is-invalid [class*="-control"] {
+  border: 1px solid #f86c6b;
+}
+
+.react-datepicker-popper {
+  z-index: 999;
+}
+
+.board-container {
+  .lane-header {
+    max-width: 250px;
+  }
+}
+
+// Fix the issue with modal scrolling on mobile devices
+.modal {
+  -webkit-overflow-scrolling: touch;
+}

@@ -1,0 +1,89 @@
+.ReactTable {
+  border: none !important;
+
+  .rt-thead {
+
+    &.-header {
+      border-bottom: 2px solid rgba(0, 0, 0, .3);
+      box-shadow: none !important;
+    }
+
+    .rt-th {
+      // border-right: 1px solid rgba(0, 0, 0, .1) !important;
+      border-right: none !important;
+
+      &.-cursor-pointer {
+
+        &.-sort-desc {
+          box-shadow: none !important;
+          &:before {
+            border: 6px solid transparent;
+            content: "";
+            display: block;
+            height: 0;
+            right: 16px;
+            top: 50%;
+            position: absolute;
+            width: 0;
+            border-top-color: #000;
+            margin-top: -3px;
+          }
+        }
+
+        &.-sort-asc {
+          box-shadow: none !important;
+          &:before {
+            border: 6px solid transparent;
+            content: "";
+            display: block;
+            height: 0;
+            right: 16px;
+            top: 50%;
+            position: absolute;
+            width: 0;
+            border-bottom-color: #000;
+            margin-top: -10px;
+          }
+        }
+      }
+    }
+
+    .rt-tr {
+      text-align: left !important;
+      font-weight: bold;
+    }
+
+    .rt-resizable-header-content {
+      padding: 2px 5px 2px 10px;
+    }
+  }
+
+  .rt-tbody {
+
+    .rt-tr-group {
+      // border-bottom: 1px solid rgba(0, 0, 0, .1) !important;
+      border-bottom: none !important;
+
+      .rt-tr:not(.-padRow):hover {
+        cursor: pointer;
+      }
+    }
+
+    .rt-td {
+      padding: 8px 20px;
+      // border-right: 1px solid rgba(0, 0, 0, .1) !important;
+      border-right: none !important;
+    }
+  }
+
+  .trash {
+    color: red;
+    font-size: 18px;
+  }
+
+  .edit {
+    color: #007bff;
+    font-size: 18px;
+  }
+
+}

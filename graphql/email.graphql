@@ -1,0 +1,33 @@
+type Email {
+    id: ID!
+    email: String!
+    is_primary: Int!
+    type: ContactType
+    notes: String
+    type_id: Int
+    created_at: String!
+    updated_at: String
+}
+
+input CreateEmailRelation {
+    connect: [ID!]
+    sync: [ID!]
+    create: [CreateEmailInput!]
+    update: [UpdateEmailInput!]
+    delete: [ID!]
+}
+
+input CreateEmailInput {
+    email: String @ruleForModel(model:"Email")
+    is_primary: Int @ruleForModel(model:"Email")
+    type_id: Int @ruleForModel(model:"Email")
+    notes: String @ruleForModel(model:"Email")
+}
+
+input UpdateEmailInput {
+    id: ID!
+    email: String @ruleForModel(model:"Email")
+    is_primary: Int @ruleForModel(model:"Email")
+    type_id: Int @ruleForModel(model:"Email")
+    notes: String @ruleForModel(model:"Email")
+}

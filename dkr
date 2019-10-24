@@ -1,0 +1,148 @@
+#!/bin/bash
+
+function _up {
+    docker-compose up -d nginx mysql elasticsearch kibana redis;
+}
+
+function _stop {
+    docker-compose stop;
+}
+
+function _logs {
+    docker-compose logs "${@:2}";
+}
+
+function _exec {
+    CONTAINER=$2
+    COMMAND="${@:3}"
+    if [ $# -le 2 ]; then
+        COMMAND='/bin/bash'
+    fi
+
+    docker-compose exec $CONTAINER $COMMAND;
+}
+
+function _truncateLogs {
+    CONTAINER=${@:2}
+
+    if [[ -z $CONTAINER ]]; then
+        _truncateAllLogs
+    fi
+
+    FULLNAME=$(docker-compose ps |grep $CONTAINER |awk "{print \$1}");
+
+    if [[ $FULLNAME == "" ]]; then
+        echo "Container \"$CONTAINER\" or variant of that name does not exist. Exiting."
+        exit 1
+    fi
+
+    LOG=$(docker inspect -f '{{.LogPath}}' $FULLNAME 2> /dev/null)
+
+    echo -e "\\033[38;5;203m───────────────────────//-= Warning!! =-\\\\\───────────────────────\\033[0m"
+    echo -e "   This command will truncate the logs for \\033[38;5;118m$FULLNAME\\033[0m to"
+    echo "   zero length. you will lose whatever data is in the logs."
+    echo -e "\\033[38;5;203m───────────────────────────────────────────────────────────────────\\033[0m"
+    read -p "Are you sure? [y/n]" -n 1 -r
+    echo
+    if [[ $REPLY =~ ^[Yy]$ ]]
+    then
+        # This uses the walkerlee/nsenter container to run a command inside the Docker for Mac VM.
+        # It's a lot easier then using the `screen` command.
+        docker run --rm -it --privileged --pid=host walkerlee/nsenter -t 1 -m -u -i -n truncate -s 0 $LOG
+        echo -e "Logs for container \\033[38;5;118m$FULLNAME\\033[0m were truncated at $LOG."
+        exit 0;
+    fi
+
+    echo "Log truncation was aborted.";
+    exit 1;
+}
+
+function _truncateAllLogs {
+    echo -e "\\033[38;5;203m───────────────────────//-= Warning!! =-\\\\\───────────────────────\\033[0m"
+    echo -e "   This command will truncate the logs for \\033[38;5;118mALL CONTAINERS\\033[0m to"
+    echo "   zero length. you will lose whatever data is in the logs."
+    echo -e "\\033[38;5;203m───────────────────────────────────────────────────────────────────\\033[0m"
+    read -p "Are you sure? [y/n]" -n 1 -r
+    echo
+    if [[ $REPLY =~ ^[Yy]$ ]]
+    then
+        echo
+        echo -e "\\033[38;5;214mRemoving all logs from all containers...\\033[38;5;152m"
+        echo
+        echo -e "               _//)_//)               "
+        echo -e "              / /)=/ /)               "
+        echo -e "             ((O)=(O))                "
+        echo -e "                \||/                  "
+        echo -e "        ________====____[o]_          "
+        echo -e "    )/)|___._==      ==_.___|(\(      "
+        echo -e "   (( \ || '-.________.-' || / ))     "
+        echo -e "    \=/ ||     ..''..     || \=/      "
+        echo -e "     \\\\\_//    / [||] \    \\\\\_//       "
+        echo -e "      \V/    / ...... \    \V/        "
+        echo -e "             \::::::::/               "
+        echo -e "       _____.---'  '---._____         "
+        echo -e "      |_-_-_|__------__|_-_-_|        "
+        echo -e "      |_-_-_|=        =|_-_-_|        "
+        echo -e "      |_-_-_|          |_-_-_|        "
+        echo
+        echo -e "\\033[38;5;154m-----------------------------------------------------"
+        echo
+        for i in `docker-compose ps -q`; do
+            LOG=$(docker inspect -f '{{.LogPath}}' $i 2> /dev/null)
+            docker run --rm -it --privileged --pid=host walkerlee/nsenter -t 1 -m -u -i -n truncate -s 0 $LOG
+            echo -e "\\033[38;5;209mLogs truncated at $LOG."
+        done
+
+        echo -e "\\033[38;5;154m-----------------------------------------------------"
+        echo
+        echo -e "\\033[38;5;118mOperation complete. Carry on, sir!\\033[0m"
+        exit 0;
+    fi
+
+    echo "Log truncation was aborted.";
+    exit 1;
+}
+
+function _help {
+    echo "Requires one of the following arguments:"
+    echo ""
+    echo "  up|start......................Starts the containers"
+    echo "  logs..........................Get the docker-compose logs"
+    echo "  exec [<command>|/bin/bash]....Execute a command. Defaults to /bin/bash"
+    echo "  truncate-logs.................Truncates logs for a particular container"
+    echo ""
+    echo "example: ./dkr exec workspace /bin/ls -lha |grep php |awk '{print \$9}'"
+    echo "         - Will print the name of every file containing PHP on its own line"
+}
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )";
+DOCKER_DIR=$DIR"/docker/";
+
+cd $DOCKER_DIR;
+
+ACTION=$1;
+
+case $ACTION in
+    up|start)
+        _up "$@"
+        ;;
+    stop)
+        _stop "$@"
+        ;;
+    logs)
+	    _logs "$@"
+	    ;;
+    exec)
+        _exec "$@"
+        ;;
+    truncate-logs)
+        _truncateLogs "$@"
+        ;;
+    help)
+        _help && exit
+        ;;
+    *)
+        echo "ERROR: No action for $1"
+        _help && exit
+        ;;
+esac

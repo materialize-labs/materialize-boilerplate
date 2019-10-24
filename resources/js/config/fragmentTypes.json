@@ -1,0 +1,33 @@
+{
+    "__schema": {
+        "types": [
+            {
+                "kind": "INTERFACE",
+                "name": "TaskStatus",
+                "possibleTypes": [
+                    {
+                        "name": "MatterTaskStatus"
+                    },
+                    {
+                        "name": "UserTaskStatus"
+                    },
+                    {
+                        "name": "BoardTypeTaskStatus"
+                    }
+                ]
+            },
+            {
+                "kind": "UNION",
+                "name": "TaskOwner",
+                "possibleTypes": [
+                    {
+                        "name": "Matter"
+                    },
+                    {
+                        "name": "User"
+                    }
+                ]
+            }
+        ]
+    }
+}

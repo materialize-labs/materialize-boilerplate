@@ -1,0 +1,50 @@
+type Address {
+    id: ID!
+    street: String
+    street_extra: String
+    city: String
+    state_name: String
+    state_abbr: String
+    post_code: String
+    country_name: String
+    notes: String
+    is_primary: Int
+    created_at: String!
+    updated_at: String
+    state: State
+    type: ContactType
+    country_id: Int
+}
+
+input CreateAddressRelation {
+    connect: [ID!]
+    sync: [ID!]
+    create: [CreateAddressInput!]
+    update: [UpdateAddressInput!]
+    delete: [ID!]
+}
+
+input CreateAddressInput {
+    street: String @ruleForModel(model:"Address")
+    street_extra: String @ruleForModel(model:"Address")
+    city: String @ruleForModel(model:"Address")
+    state_id: Int @ruleForModel(model:"Address")
+    post_code: String @ruleForModel(model:"Address")
+    country_id: Int @ruleForModel(model:"Address")
+    is_primary: Int @ruleForModel(model:"Address")
+    type_id: Int @ruleForModel(model:"Address")
+    notes: String @ruleForModel(model:"Address")
+}
+
+input UpdateAddressInput {
+    id: ID!
+    street: String @ruleForModel(model:"Address")
+    street_extra: String @ruleForModel(model:"Address")
+    city: String @ruleForModel(model:"Address")
+    state_id: Int @ruleForModel(model:"Address")
+    post_code: String @ruleForModel(model:"Address")
+    country_id: Int @ruleForModel(model:"Address")
+    is_primary: Int @ruleForModel(model:"Address")
+    type_id: Int @ruleForModel(model:"Address")
+    notes: String @ruleForModel(model:"Address")
+}

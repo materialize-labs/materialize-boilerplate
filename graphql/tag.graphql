@@ -1,0 +1,19 @@
+type Tag {
+    id: ID!
+    name: String!
+    hex_color: String
+    value: String!
+    label: String!
+}
+
+input AddTagInput {
+    name: String!
+    hex_color: String
+}
+
+input CreateTagRelation {
+    create: [AddTagInput!]
+    delete: [ID!]
+    connect: [ID!]
+    disconnect: [ID!]
+}

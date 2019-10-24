@@ -1,0 +1,47 @@
+#import country.graphql
+#import address.graphql
+#import email.graphql
+#import website.graphql
+#import phoneNumber.graphql
+#import tag.graphql
+
+#"A datetime string with format `Y-m-d H:i:s`, e.g. `2018-01-01 13:00:00`."
+scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
+
+#"A date string with format `Y-m-d`, e.g. `2011-05-23`."
+scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
+
+type Query {
+    users: [User!]! @all
+    user (id: Int! @eq): User @find
+    me: User @auth(guard: "api")
+}
+
+type Mutation {
+    updateUser(
+        id: ID!
+        first_name: String @rules(apply: ["string", "max:255"])
+        last_name: String @rules(apply: ["string", "max:255"])
+        title: String @rules(apply: ["string", "max:255"])
+        email: String @rules(apply: ["email", "max:255"])
+        password: String @bcrypt @rules(apply: ["string", "min:6"])
+        phone: String @rules(apply: ["phone:US"])
+    ): User @middleware(checks: ["auth:api"])
+    deleteUser(id: ID!): User @middleware(checks: ["auth:api"]) @delete
+}
+
+type User {
+    id: ID!
+    email: String!
+    first_name: String!
+    last_name: String!
+    title: String
+    phone: String
+    avatar: String
+    roles_string: String
+    full_name: String
+    value: String
+    label: String
+    created_at: String!
+    updated_at: String
+}

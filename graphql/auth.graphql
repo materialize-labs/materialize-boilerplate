@@ -1,0 +1,88 @@
+input LoginInput {
+    username: String!
+    password: String!
+}
+
+input NewUserInput {
+    first_name: String! @rules(apply: ["required", "string", "max:255", "min:2"])
+    last_name: String! @rules(apply: ["required", "string", "max:255", "min:2"])
+    email: String! @rules(apply: ["required", "email", "max:255", "unique:users,email"])
+    password: String! @rules(apply: ["required" ,"string", "min:6"])
+    phone: String @rules(apply: ["phone:US"])
+}
+
+input RefreshTokenInput {
+    refresh_token: String
+}
+
+type AuthPayload {
+    access_token: String!
+    refresh_token: String!
+    expires_in: Int!
+    token_type: String!
+}
+
+type LogoutResponse {
+    status: String!
+    message: String
+}
+
+type ForgotPasswordResponse {
+    status: String!
+    message: String
+}
+
+type VerifyEmailResponse {
+    status: String!
+    message: String
+}
+
+type InviteUserResponse {
+    status: String!
+    message: String
+}
+
+input ForgotPasswordInput {
+    email: String!
+}
+
+input NewPasswordWithCodeInput {
+    email: String!
+    token: String!
+    password: String!
+    password_confirmation: String!
+}
+
+input EmailVerificationInput {
+    id: String!
+    signature: String!
+    expires: Int!
+}
+
+input ChangePasswordInput {
+    id: ID!
+    password: String!
+}
+
+input InviteUserInput {
+    first_name: String! @rules(apply: ["required", "string", "max:255", "min:2"])
+    last_name: String! @rules(apply: ["required", "string", "max:255", "min:2"])
+    email: String! @rules(apply: ["required", "email", "max:255", "unique:users,email"])
+    title: String! @rules(apply: ["required", "string", "max:255", "min:2"])
+    role: String! @rules(apply: ["required", "string"])
+    password: String! @rules(apply: ["required" ,"string", "min:6"])
+}
+
+extend type Mutation {
+    login(data: LoginInput): AuthPayload! @field(resolver: "Joselfonseca\\LighthouseGraphQLPassport\\GraphQL\\Mutations\\Login@resolve")
+    newUser(data: NewUserInput): AuthPayload! @field(resolver: "App\\GraphQL\\Mutations\\NewUser@resolve")
+    refreshToken(data: RefreshTokenInput): AuthPayload! @field(resolver: "Joselfonseca\\LighthouseGraphQLPassport\\GraphQL\\Mutations\\RefreshToken@resolve")
+    logout: LogoutResponse! @field(resolver: "Joselfonseca\\LighthouseGraphQLPassport\\GraphQL\\Mutations\\Logout@resolve")
+    forgotPassword(data: ForgotPasswordInput!): ForgotPasswordResponse! @field(resolver: "Joselfonseca\\LighthouseGraphQLPassport\\GraphQL\\Mutations\\ForgotPassword@resolve")
+    updateForgottenPassword(data: NewPasswordWithCodeInput): ForgotPasswordResponse! @field(resolver: "Joselfonseca\\LighthouseGraphQLPassport\\GraphQL\\Mutations\\ResetPassword@resolve")
+    verifyEmail(data: EmailVerificationInput!): VerifyEmailResponse! @field(resolver: "App\\GraphQL\\Mutations\\VerifyEmail@resolve")
+    resendVerificationEmail: VerifyEmailResponse! @field(resolver: "App\\GraphQL\\Mutations\\VerifyEmail@resendEmail")
+    inviteUser(data: InviteUserInput): InviteUserResponse! @middleware(checks: ["auth:api"]) @field(resolver: "App\\GraphQL\\Mutations\\InviteUser@resolve")
+        @can(ability: "create", model: "App\\Models\\User")
+    changePassword(data: ChangePasswordInput!): User! @field(resolver: "App\\GraphQL\\Mutations\\ChangePassword@resolve")
+}

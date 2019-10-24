@@ -1,0 +1,29 @@
+.board-container {
+  background: transparent !important;
+}
+
+.react-trello-lane {
+  border-radius: 5px !important;
+}
+
+.react-trello-board.board-container {
+  height: 100%;
+}
+
+.react-daterange-picker__wrapper {
+  border-radius: $border-radius;
+  border: $input-border-width solid $input-border-color !important;
+  padding: 0.25rem 0.125rem;
+
+  input {
+    color: $input-color;
+  }
+
+  svg {
+    stroke: $input-color;
+  }
+
+  .react-daterange-picker__inputGroup {
+    justify-content: center;
+  }
+}

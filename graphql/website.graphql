@@ -1,0 +1,29 @@
+type Website {
+    id: ID!
+    website: String!
+    is_primary: Int!
+    notes: String
+    created_at: String!
+    updated_at: String
+}
+
+input CreateWebsiteRelation {
+    connect: [ID!]
+    sync: [ID!]
+    create: [CreateWebsiteInput!]
+    update: [UpdateWebsiteInput!]
+    delete: [ID!]
+}
+
+input CreateWebsiteInput {
+    website: String @ruleForModel(model:"Website")
+    is_primary: Int @ruleForModel(model:"Website")
+    notes: String @ruleForModel(model:"Website")
+}
+
+input UpdateWebsiteInput {
+    id: ID!
+    website: String @ruleForModel(model:"Website")
+    is_primary: Int @ruleForModel(model:"Website")
+    notes: String @ruleForModel(model:"Website")
+}

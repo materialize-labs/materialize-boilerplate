@@ -1,0 +1,103 @@
+{
+    "name": "laravel/laravel",
+    "type": "project",
+    "description": "The Laravel Framework.",
+    "keywords": [
+        "framework",
+        "laravel"
+    ],
+    "license": "MIT",
+    "require": {
+        "php": "^7.2.0",
+        "ext-json": "*",
+        "algolia/algoliasearch-client-php": "^2.2",
+        "babenkoivan/scout-elasticsearch-driver": "^3.10",
+        "coderello/laravel-passport-social-grant": "^2.0",
+        "doctrine/dbal": "^2.9",
+        "fideloper/proxy": "^4.0",
+        "joselfonseca/lighthouse-graphql-passport-auth": "^1.2",
+        "laravel/framework": "^6.0",
+        "laravel/passport": "^7.2",
+        "laravel/scout": "^7.1",
+        "laravel/socialite": "^4.1",
+        "laravel/tinker": "^1.0",
+        "lecturize/laravel-addresses": "^0.1.1",
+        "mll-lab/graphql-php-scalars": "^2.1",
+        "mll-lab/laravel-graphql-playground": "^1.0",
+        "nesbot/carbon": "^2.17",
+        "nuwave/lighthouse": "^4.0",
+        "platformsh/laravel-bridge": "^2.0",
+        "propaganistas/laravel-phone": "^4.2.2",
+        "spatie/laravel-activitylog": "dev-master",
+        "spatie/laravel-permission": "^3.0"
+    },
+    "require-dev": {
+        "beyondcode/laravel-dump-server": "^1.0",
+        "filp/whoops": "^2.0",
+        "fzaninotto/faker": "^1.4",
+        "mockery/mockery": "^1.0",
+        "nunomaduro/collision": "^2.0",
+        "phpunit/phpunit": "^7.5",
+        "squizlabs/php_codesniffer": "^3.4",
+        "mrholek/coreui-react": "dev-master"
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true
+    },
+    "repositories": [
+        {
+            "type": "package",
+            "package": {
+                "name": "mrholek/CoreUI-React",
+                "version": "dev-master",
+                "dist": {
+                    "url": "https://github.com/mrholek/CoreUI-React/archive/master.zip",
+                    "type": "zip"
+                }
+
+            }
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/materialize-labs/laravel-activitylog"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "dont-discover": []
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        },
+        "classmap": [
+            "database/seeds",
+            "database/factories"
+        ],
+        "files": [
+            "platformsh_load.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "scripts": {
+        "post-autoload-dump": [
+            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+            "@php artisan package:discover --ansi"
+        ],
+        "post-root-package-install": [
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+        ],
+        "post-create-project-cmd": [
+            "@php artisan key:generate --ansi"
+        ]
+    }
+}

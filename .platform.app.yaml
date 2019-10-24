@@ -1,0 +1,77 @@
+# This file describes an application. You can have multiple applications
+# in the same project.
+
+# The name of this app. Must be unique within a project.
+name: materialize-boilerplate
+
+# The type of the application to build.
+type: php:7.2
+build:
+    flavor: composer
+
+runtime:
+  extensions:
+    - redis
+
+# The hooks that will be performed when the package is deployed.
+hooks:
+  build: |
+    unset NPM_CONFIG_PREFIX
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
+    export NVM_DIR="$HOME/.nvm"
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+    nvm current
+    nvm install 10.15.1
+    nvm use 10.15.1
+    npm i
+    npm run prod
+  deploy: |
+    unset NPM_CONFIG_PREFIX
+    set -e
+    rm -rf bootstrap/cache/*
+    php artisan clear-compiled
+    php artisan optimize
+    php artisan migrate --force
+
+# The relationships of the application with services or other applications.
+# The left-hand side is the name of the relationship as it will be exposed
+# to the application in the PLATFORM_RELATIONSHIPS variable. The right-hand
+# side is in the form `<service name>:<endpoint name>`.
+relationships:
+    database: "mysqldb:mysql"
+    rediscache: "redis:redis"
+    redissession: "redis:redis"
+    redisqueue: "redis:redis"
+    elasticsearch: "mysearch:elasticsearch"
+
+# The size of the persistent disk of the application (in MB).
+disk: 1792
+
+# The mounts that will be performed when the package is deployed.
+mounts:
+  "storage": "shared:files/storage"
+  "storage/app/public": "shared:files/public"
+  "storage/framework/views": "shared:files/views"
+  "storage/framework/sessions": "shared:files/sessions"
+  "storage/framework/cache": "shared:files/cache"
+  "storage/logs": "shared:files/logs"
+  "bootstrap/cache": "shared:files/bootstrap_cache"
+
+# The configuration of app when it is exposed to the web.
+web:
+  locations:
+    "/":
+      root: "public"
+      index:
+        - index.php
+      allow: true
+      passthru: "/index.php"
+
+# Workers configuration
+workers:
+    queue:
+        size: S
+        commands:
+            start: |
+                php artisan queue:work
+        disk: 256

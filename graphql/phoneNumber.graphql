@@ -1,0 +1,33 @@
+type PhoneNumber {
+    id: ID!
+    phone_number: String!
+    is_primary: Int!
+    type: ContactType
+    notes: String
+    type_id: Int
+    created_at: String!
+    updated_at: String
+}
+
+input CreatePhoneNumberRelation {
+    connect: [ID!]
+    sync: [ID!]
+    create: [CreatePhoneNumberInput!]
+    update: [UpdatePhoneNumberInput!]
+    delete: [ID!]
+}
+
+input CreatePhoneNumberInput {
+    phone_number: String @ruleForModel(model:"PhoneNumber")
+    is_primary: Int @ruleForModel(model:"PhoneNumber")
+    type_id: Int @ruleForModel(model:"PhoneNumber")
+    notes: String @ruleForModel(model:"PhoneNumber")
+}
+
+input UpdatePhoneNumberInput {
+    id: ID!
+    phone_number: String @ruleForModel(model:"PhoneNumber")
+    is_primary: Int @ruleForModel(model:"PhoneNumber")
+    type_id: Int @ruleForModel(model:"PhoneNumber")
+    notes: String @ruleForModel(model:"PhoneNumber")
+}
