@@ -119,6 +119,7 @@ class UserTest extends TestCase
         $response->assertStatus(200);
 
         $responseBody = json_decode($response->getContent(), true);
+        // dd($responseBody);
         $this->assertArrayHasKey('newUser', $responseBody['data']);
         $this->assertArrayHasKey('access_token', $responseBody['data']['newUser']);
     }
@@ -135,7 +136,6 @@ class UserTest extends TestCase
                     email: \"invite@gmail.com\"
                     title: \"Assistant\"
                     password: \"password\"
-                    role: \"user\"
                 }){
                     status
                     message
@@ -173,39 +173,6 @@ class UserTest extends TestCase
                     ]
                 ]
             ]);
-    }
-
-    public function testNormalUserCantInviteUser()
-    {
-        $this->createClient();
-        $token = $this->getLoginTokenForUser('user@test.com', 'password');
-        $mutation = [
-            'query' => "mutation {
-                inviteUser(data: {
-                    first_name: \"Invite\"
-                    last_name: \"User\"
-                    email: \"invite@gmail.com\"
-                    title: \"Assistant\"
-                    password: \"password\"
-                    role: \"user\"
-                }){
-                    status
-                    message
-                }
-            }"
-        ];
-
-        $response = $this->withHeaders([
-            'Authorization' => 'Bearer ' . $token
-        ])
-            ->json('POST', '/graphql', $mutation);
-
-        $response->assertStatus(200);
-
-        $this->assertEquals(
-            $response->original['errors'][0]['message'],
-            'You are not authorized to access inviteUser'
-        );
     }
 
     public function testCanDeleteUser()

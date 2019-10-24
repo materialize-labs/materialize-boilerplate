@@ -17,17 +17,17 @@ class ElasticSearchTest extends TestCase
     public function testCanSearchUsers()
     {
         $expected = [
-            "id" => 2,
-            "email" => "owner@test.com",
+            "id" => 1,
+            "email" => "admin@test.com",
             "email_verified_at" => null,
-            "first_name" => "John",
-            "last_name" => "Doe",
-            "phone" => "+13102849182",
+            "first_name" => "Testy",
+            "last_name" => "McTesterson",
+            "phone" => "+13104599863",
         ];
 
         $this->mockElasticsearch($expected);
 
-        $results = User::search('john')->get()->toArray();
+        $results = User::search('testy')->get()->toArray();
 
         $this->assertEquals($expected['id'], $results[0]['id']);
         $this->assertEquals($expected['email'], $results[0]['email']);

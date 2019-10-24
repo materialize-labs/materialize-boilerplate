@@ -14,7 +14,6 @@ class DatabaseSeeder extends Seeder
         $this->call([
             CountriesSeeder::class,
             StatesTableSeeder::class,
-            RolesAndPermissionsSeeder::class,
             UsersTableSeeder::class,
             SalutationsTableSeeder::class,
             MaritalStatusesTableSeeder::class,

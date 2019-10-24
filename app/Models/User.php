@@ -10,12 +10,11 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Validation\Rule;
 use Laravel\Passport\HasApiTokens;
-use Spatie\Permission\Traits\HasRoles;
 use Validator;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use Notifiable, HasRoles, Searchable, HasApiTokens;
+    use Notifiable, Searchable, HasApiTokens;
 
     protected $indexConfigurator = UserIndexConfigurator::class;
 

@@ -10,7 +10,6 @@
     "require": {
         "php": "^7.2.0",
         "ext-json": "*",
-        "algolia/algoliasearch-client-php": "^2.2",
         "babenkoivan/scout-elasticsearch-driver": "^3.10",
         "coderello/laravel-passport-social-grant": "^2.0",
         "doctrine/dbal": "^2.9",
@@ -28,8 +27,7 @@
         "nuwave/lighthouse": "^4.0",
         "platformsh/laravel-bridge": "^2.0",
         "propaganistas/laravel-phone": "^4.2.2",
-        "spatie/laravel-activitylog": "dev-master",
-        "spatie/laravel-permission": "^3.0"
+        "spatie/laravel-activitylog": "dev-master"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",
@@ -58,10 +56,6 @@
                 }
 
             }
-        },
-        {
-            "type": "vcs",
-            "url": "https://github.com/materialize-labs/laravel-activitylog"
         }
     ],
     "extra": {

@@ -26,7 +26,6 @@ class UserService
         }
 
         $user = Models\User::create($attributes);
-        $user->assignRole($role);
 
         return $user;
     }
@@ -42,7 +41,6 @@ class UserService
             : null;
 
         $user = Models\User::create($attributes);
-        $user->assignRole($attributes['role']);
 
         return $user;
     }
@@ -67,24 +65,5 @@ class UserService
         $user->update($attributes);
 
         return $user->refresh();
-    }
-
-    /**
-     * Updates a user's roles.
-     *
-     * @param Models\User $user
-     * @param array       $roles
-     * @return Models\User
-     */
-    public function updateUserRoles(Models\User $user, array $roles) : Models\User
-    {
-        if (isset($roles)) {
-            $user->syncRoles($roles);
-        } else {
-            $user->roles()->detach();
-            $user->assignRole('User');
-        }
-
-        return $user;
     }
 }

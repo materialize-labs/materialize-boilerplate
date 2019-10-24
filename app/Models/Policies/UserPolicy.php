@@ -11,9 +11,7 @@ class UserPolicy
 
     public function before($user, $ability)
     {
-        if ($user->hasAnyRole(['super-admin', 'admin'])) {
-            return true;
-        }
+        return true;
     }
 
     /**
@@ -25,6 +23,7 @@ class UserPolicy
      */
     public function view(User $user, User $model)
     {
+        return true;
     }
 
     /**
@@ -35,7 +34,7 @@ class UserPolicy
      */
     public function create(User $user)
     {
-        return $user->hasAnyRole(['owner', 'manager']);
+        return true;
     }
 
     /**
@@ -47,15 +46,7 @@ class UserPolicy
      */
     public function update(User $user, User $model)
     {
-        if ($user->hasAnyRole(['owner', 'manager'])) {
-            return true;
-        }
-
-        if ($user->id === $model->id) {
-            return true;
-        }
-
-        return false;
+        return true;
     }
 
     /**
@@ -67,7 +58,7 @@ class UserPolicy
      */
     public function delete(User $user, User $model)
     {
-        return $user->hasAnyRole(['owner', 'manager']);
+        //
     }
 
     /**

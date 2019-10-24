@@ -69,7 +69,6 @@ input InviteUserInput {
     last_name: String! @rules(apply: ["required", "string", "max:255", "min:2"])
     email: String! @rules(apply: ["required", "email", "max:255", "unique:users,email"])
     title: String! @rules(apply: ["required", "string", "max:255", "min:2"])
-    role: String! @rules(apply: ["required", "string"])
     password: String! @rules(apply: ["required" ,"string", "min:6"])
 }
 

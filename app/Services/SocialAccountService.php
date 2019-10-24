@@ -31,18 +31,13 @@ class SocialAccountService
             if (! $user) {
                 list($first, $last) = ($providerUser->getName())
                     ? array_pad(explode(' ', $providerUser->getName()), 2, '') : ['',''];
-                $org = \App\Models\Organization::create([
-                    'name' => $providerUser->getName()
-                ]);
                 $user = User::create([
                     'first_name' => $first,
                     'last_name' => $last,
                     'email' => $providerUser->getEmail(),
                     'email_verified_at' => now(),
                     'avatar' => $providerUser->getAvatar(),
-                    'organization_id' => $org->id,
                 ]);
-                $user->assignRole('owner');
             }
             $user->linkedSocialAccounts()->create([
                 'provider_id' => $providerUser->getId(),
