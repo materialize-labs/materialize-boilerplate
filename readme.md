@@ -83,40 +83,53 @@ For detailed Laravel setup instructions, visit [their documentation](https://lar
    ```sh
    $ bash dkr up
    ```
-5. **Add records to /etc/hosts file**
-    ```
-    127.0.0.1 mysql redis db elasticsearch
-    ```
 
-Next steps should be done inside the laradock workspace, to do this, exec the next line:
-```sh
-docker exec -it laradock_workspace_1 bash
-```
-
-6. **Install PHP dependencies**
+5. **Install PHP dependencies**
 
    ```sh
    $ composer install
    ```
 
-7. **Generate application key**
+6. **Generate application key**
    
    ```sh
    $ php artisan key:generate
    ```
 
-**NOTE:** 
-if you have problems like `connection refused` in the next steps, this is related to MySQL 8 and you can check [this link](https://medium.com/@crmcmullen/how-to-run-mysql-8-0-with-native-password-authentication-502de5bac661) to understand the problem.
+7. **Create MySQL DB**
+
+a. Enter the MySQL container:
+
+```sh
+cd docker && docker-compose exec mysql bash
+```
+
+b. Enter MySQL:
+
+```sh
+mysql -uroot -proot
+```
+
+c. Create new DB:
+
+```sh
+CREATE DATABASE materialize;
+```
+
+d. Exit MySQL and exit the container.
+
+***NOTE***:
+If you have problems like `connection refused` in the next steps, this is related to MySQL 8 and you can check [this link](https://medium.com/@crmcmullen/how-to-run-mysql-8-0-with-native-password-authentication-502de5bac661) to understand the problem.
 
 You can solve it by doing:
 
-A. Get in your container for mysql:
+a. Get in your container for mysql:
    
    ``` sh
    docker exec -it laradock_workspace_1 bash
    ```
 
-B. Create or update your password with the mysq_native_password:
+b. Create or update your password with the mysq_native_password:
    
    ```SH
    CREATE USER 'nativeuser'@'%'IDENTIFIED WITH mysql_native_password BY 'password';
