@@ -25,9 +25,6 @@ const RegistrationSchema = Yup.object().shape({
   last_name: Yup.string()
     .required('Last Name is required.')
     .min(2, 'Last Name must be longer than 2 characters'),
-  organization: Yup.string()
-    .required('Organization is required.')
-    .min(2, 'Organization must be longer than 2 characters'),
   password: Yup.string().required('Password is required'),
   passwordConfirm: Yup.string()
     .oneOf([Yup.ref('password'), null], 'Passwords must match')
@@ -103,23 +100,6 @@ const FormContent = (props) => {
           invalid={isInvalid('email', touched, errors)}
         />
         <InvalidErrorMessage name="email" />
-      </InputGroup>
-      <InputGroup className="mb-3">
-        <InputGroupAddon addonType="prepend">
-          <InputGroupText>
-            <i className="fa fa-building-o" />
-          </InputGroupText>
-        </InputGroupAddon>
-        <Input
-          type="text"
-          placeholder="Organization"
-          autoComplete="organization"
-          tag={Field}
-          component="input"
-          name="organization"
-          invalid={isInvalid('organization', touched, errors)}
-        />
-        <InvalidErrorMessage name="organization" />
       </InputGroup>
       <InputGroup className="mb-3">
         <InputGroupAddon addonType="prepend">

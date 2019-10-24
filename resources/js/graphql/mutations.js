@@ -11,7 +11,6 @@ export const REGISTER_USER = gql`
         $first_name: String!,
         $last_name: String!,
         $email: String!,
-        $organization: String!,
         $phone: String,
         $password: String!
     ){
@@ -21,11 +20,6 @@ export const REGISTER_USER = gql`
             email: $email,
             phone: $phone,
             password: $password,
-            organization: {
-                create: {
-                    name: $organization
-                }
-            }
         }){
             access_token
         }
@@ -79,7 +73,6 @@ export const INVITE_USER = gql`
         $last_name: String!,
         $email: String!,
         $title: String!,
-        $role: String!,
         $password: String!
         $organization: ID!,
     ){
@@ -88,7 +81,6 @@ export const INVITE_USER = gql`
             last_name: $last_name,
             email: $email,
             title: $title,
-            role: $role,
             password: $password,
             organization: {
                 connect: $organization
