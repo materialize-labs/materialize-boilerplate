@@ -25,6 +25,9 @@ See the [wiki](https://github.com/materialize-labs/materialize-boilerplate/wiki)
 * Google Social Auth
 * PHPUnit feature and unit tests
 * Laravel Scout searching w/ ElasticSearch support
+* Opinionated ESLint rules
+* Opinionated phpcbf rules
+* Git hooks to run test and linting suite automatically
 
 #### Laravel Packages
 * [Lighthouse](https://lighthouse-php.com/) GraphQL server
@@ -200,6 +203,13 @@ Set the values using the `id` and `secret` values that are set in the `oauth_cli
 17. **Run website**
 
     `http://localhost/`
+
+18. **Login**
+
+Use a seeded user account to login:
+
+**Email**: admin@test.com<br>
+**Password**: password
 
 ## Docker
 
