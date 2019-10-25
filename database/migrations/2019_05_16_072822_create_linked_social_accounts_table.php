@@ -20,12 +20,6 @@ class CreateLinkedSocialAccountsTable extends Migration
             $table->string('provider_id')->unique()->nullable();
             $table->timestamps();
         });
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('provider_name');
-        });
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('provider_id');
-        });
     }
 
     /**
@@ -36,9 +30,5 @@ class CreateLinkedSocialAccountsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('linked_social_accounts');
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('provider_name')->nullable();
-            $table->string('provider_id')->unique()->nullable();
-        });
     }
 }

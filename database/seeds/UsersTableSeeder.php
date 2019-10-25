@@ -21,10 +21,10 @@ class UsersTableSeeder extends Seeder
                 'first_name' => 'Testy',
                 'last_name' => 'McTesterson',
                 'title' => 'Partner',
-                'phone' => '+13104599863',
+                'display_name' => 'Testy Face',
+                'avatar' => '/images/avatar-1.png',
                 'email' => 'admin@test.com',
                 'password' => Hash::make('password'),
-                'avatar' => '/images/avatar-1.png',
                 'created_at' => $now->toDateTimeString(),
                 'updated_at' => $now->toDateTimeString(),
             ]

@@ -21,7 +21,6 @@ class UserTest extends TestCase
                 first_name
                 last_name
                 email
-                phone
               }
             }"
         ]);
@@ -71,7 +70,6 @@ class UserTest extends TestCase
                     first_name
                     last_name
                     email
-                    phone
                 }
             }"
         ];
@@ -104,7 +102,6 @@ class UserTest extends TestCase
                     first_name: \"Add\"
                     last_name: \"User\"
                     email: \"test@adduser.com\"
-                    phone: \"3105555555\"
                     password: \"password\"
                  }){
                     access_token
@@ -272,7 +269,6 @@ class UserTest extends TestCase
                 "first_name" => "Testy",
                 "last_name" => "McTesterson",
                 "email" => "admin@test.com",
-                "phone" => "+13104599863",
               ]
             ]
           ]
@@ -301,7 +297,6 @@ class UserTest extends TestCase
                     "first_name" => "Testy",
                     "last_name" => "McTesterson",
                     "email" => "admin@test.com",
-                    "phone" => "+13104599863",
                 ]
             ]
         ];

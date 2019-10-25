@@ -22,7 +22,6 @@ class ElasticSearchTest extends TestCase
             "email_verified_at" => null,
             "first_name" => "Testy",
             "last_name" => "McTesterson",
-            "phone" => "+13104599863",
         ];
 
         $this->mockElasticsearch($expected);
@@ -33,7 +32,6 @@ class ElasticSearchTest extends TestCase
         $this->assertEquals($expected['email'], $results[0]['email']);
         $this->assertEquals($expected['first_name'], $results[0]['first_name']);
         $this->assertEquals($expected['last_name'], $results[0]['last_name']);
-        $this->assertEquals($expected['phone'], $results[0]['phone']);
     }
 
     /**
