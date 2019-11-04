@@ -84,7 +84,7 @@ class SearchRefresh extends Command
             $classUses = class_uses($className);
 
             // Skip this class if the ElasticSearch trait isn't found
-            if (!count($classUses) || !array_key_exists('ScoutElastic\Searchable', $classUses)) {
+            if (!count($classUses) || !array_key_exists('App\Traits\Searchable', $classUses)) {
                 continue;
             }
 
