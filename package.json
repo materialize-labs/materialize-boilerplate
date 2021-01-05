@@ -33,7 +33,7 @@
         "@graphql-codegen/fragment-matcher": "^1.5.0",
         "@hot-loader/react-dom": "^16.8.6",
         "@wojtekmaj/react-daterange-picker": "^2.4.0",
-        "axios": "^0.18.1",
+        "axios": "^0.21.1",
         "babel-eslint": "^10.0.2",
         "bootstrap": "^4.3.1",
         "chart.js": "^2.8.0",
